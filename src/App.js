@@ -4,10 +4,7 @@ import "./App.css";
 function App() {
   const [first, setFirst] = useState(0);
   const [second, setSecond] = useState(0);
-
-  useEffect(() => {
-    console.log("Count variable has changed!");
-  }, [first, second]);
+  const [highest, setHighest] = useState(0);
 
   const firstVariable = () => {
     setFirst(first + 1);
@@ -17,12 +14,15 @@ function App() {
     setSecond(second + 1);
   };
 
-  let output = "";
-  if (first > second) {
-    output = `First: ${first}`;
-  } else if (second > first) {
-    output = `Second: ${second}`;
-  }
+  useEffect(() => {
+    if (first > second) {
+      setHighest(first);
+    } else {
+      setHighest(second);
+    }
+
+    console.log("Count variable has changed!");
+  }, [first, second]);
 
   return (
     <div className="btns-cont">
@@ -30,7 +30,7 @@ function App() {
         <button onClick={firstVariable}>First Button</button>
         <button onClick={secondVariable}>Second Button</button>
       </div>
-      <p>{output}</p>
+      <p>{highest}</p>
     </div>
   );
 }
